@@ -30,15 +30,9 @@ formulaire.addEventListener('submit', function(e) {
         myerror.innerHTML = ""; // Effacer le message d'erreur si la validation passe
     }
 
-    if (valid) {
-        document.getElementById('password_div').classList.remove('hidden');
-    }
-
     // Validation pour le mot de passe
-    valid = true;
     let passwordInput = document.getElementById('password_input');
     let passwordError = document.getElementById('error_password');
-
     if (passwordInput.value.trim() === "") {
         passwordError.innerHTML = "Le mot de passe est requis";
         passwordError.style.color = 'red';
@@ -51,15 +45,9 @@ formulaire.addEventListener('submit', function(e) {
         passwordError.innerHTML = ""; // Effacer le message d'erreur si la validation passe
     }
 
-    if (valid) {
-        document.getElementById('email_div').classList.remove('hidden');
-    }
-
     // Validation pour l'email
-    valid = true;
     let emailInput = document.getElementById('email_input');
     let emailError = document.getElementById('error_email');
-
     if (emailInput.value.trim() === "") {
         emailError.innerHTML = "L'email est requis";
         emailError.style.color = 'red';
@@ -72,21 +60,28 @@ formulaire.addEventListener('submit', function(e) {
         emailError.innerHTML = ""; // Effacer le message d'erreur si la validation passe
     }
 
-
     if (valid) {
-        document.getElementById('mon_formulaire').classList.add('hidden');
-        let message = document.getElementById('success_message').classList.remove('hidden');
+        // Masquer le formulaire
+        formulaire.classList.add('hidden');
+        
+        // Créer et afficher le message de succès
+        let successMessage = document.createElement('div');
+        successMessage.id = 'success_message';
+        successMessage.classList.add('hidden');
+        successMessage.innerHTML = "Formulaire soumis avec succès!";
+        document.body.appendChild(successMessage);
+        successMessage.classList.remove('hidden');
 
         setTimeout(function() {
-            document.getElementById('mon_formulaire').classList.remove('hidden'); // Réafficher le formulaire
-            document.getElementById('success_message').classList.add('hidden');
+            // Réafficher le formulaire et cacher le message de succès
+            formulaire.classList.remove('hidden'); 
+            successMessage.classList.add('hidden');
             resetForm(); // Appeler la fonction pour réinitialiser le formulaire
         }, 1000);
-
-
-
     }
-
 });
 
+function resetForm() {
+    formulaire.reset();
+}
 
